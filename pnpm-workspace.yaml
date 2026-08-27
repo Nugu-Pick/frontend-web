@@ -1,3 +1,9 @@
-ignoredBuiltDependencies:
+onlyBuiltDependencies:
+  - "@biomejs/biome"
+  - "@swc/core"
+  - esbuild
+  - lefthook
   - sharp
+
+ignoredBuiltDependencies:
   - unrs-resolver
