@@ -66,7 +66,8 @@ src/
   entities/          # (later) domain entities — user, pick
   shared/            # reusable, framework-agnostic
     api/             #   query-client.ts — server/browser QueryClient factory
-    styles/          #   theme.css.ts — token contract + light/dark + reset
+    config/          #   tokens.ts — PRIMITIVE palette (raw hex, framework-agnostic)
+    styles/          #   theme.css.ts — SEMANTIC token contract + light/dark + reset
     test/            #   renderWithProviders() helper
     ui/              #   (later) design-system primitives
 ```
@@ -82,6 +83,12 @@ later.
 - **Styling:** every component that needs styles gets a sibling `*.css.ts`.
   Reference design tokens through `vars` from `@/shared/styles/theme.css` — no
   raw hex values in component styles.
+- **Design tokens — two tiers:** `shared/config/tokens.ts` holds the raw
+  primitive palette (`palette.gray[500]` …); `shared/styles/theme.css.ts`
+  maps primitives → semantic roles (`vars.color.fg.default`,
+  `vars.color.accent.hover` …) per light/dark theme. Components use semantic
+  `vars.color.*` only — never import `tokens.ts` directly. Only `color.*`
+  swaps between themes (`prefers-color-scheme`, no toggle).
 - **Data fetching:** Server Components fetch directly / `prefetchQuery` +
   `HydrationBoundary`; `useQuery` on the client is for interactive state
   (pagination, polling, optimistic updates).

@@ -19,7 +19,7 @@ export const title = style({
 });
 
 export const subtitle = style({
-  color: vars.color.muted,
+  color: vars.color.fg.muted,
   fontSize: "1rem",
   maxWidth: "40ch",
   lineHeight: 1.6,
@@ -31,8 +31,8 @@ export const card = style({
   gap: vars.space.sm,
   padding: vars.space.lg,
   borderRadius: vars.radius.md,
-  border: `1px solid ${vars.color.border}`,
-  backgroundColor: vars.color.surface,
+  border: `1px solid ${vars.color.border.default}`,
+  backgroundColor: vars.color.bg.subtle,
   fontFamily: vars.font.mono,
   fontSize: "0.875rem",
 });
