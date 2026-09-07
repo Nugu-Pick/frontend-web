@@ -4,87 +4,149 @@ import {
   createGlobalThemeContract,
   globalStyle,
 } from "@vanilla-extract/css";
+import { palette, radius, space } from "@/shared/config/tokens";
 
 /**
- * Design tokens. Reference these in `*.css.ts` files via `vars.color.background` etc.
- * Values live in the theme objects below so light / dark can swap them.
+ * SEMANTIC design tokens — the only tokens components may use.
+ *
+ * `color.*` swaps between light and dark (`prefers-color-scheme`, no toggle).
+ * `space` / `radius` / `font` are static. Structure mirrors the Figma
+ * "Semantic" collection (Light/Dark modes); raw values live in
+ * `shared/config/tokens.ts`.
  */
+const toKebab = (s: string) => s.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+
 export const vars = createGlobalThemeContract(
   {
     color: {
-      background: "color-background",
-      surface: "color-surface",
-      foreground: "color-foreground",
-      muted: "color-muted",
-      border: "color-border",
-      accent: "color-accent",
-      accentForeground: "color-accent-foreground",
+      background: { default: null, lower: null, floated: null },
+      text: {
+        strong: null,
+        primary: null,
+        secondary: null,
+        tertiary: null,
+        brand: null,
+        onBrand: null,
+        danger: null,
+      },
+      icon: { primary: null, secondary: null, brand: null },
+      fill: {
+        brand: null,
+        brandPressed: null,
+        brandWeak: null,
+        neutralWeak: null,
+        disabled: null,
+        dangerWeak: null,
+      },
+      border: { default: null, strong: null, brand: null },
     },
-    font: {
-      body: "font-body",
-      mono: "font-mono",
-    },
+    font: { body: null, mono: null },
     space: {
-      xs: "space-xs",
-      sm: "space-sm",
-      md: "space-md",
-      lg: "space-lg",
-      xl: "space-xl",
+      4: null,
+      8: null,
+      12: null,
+      16: null,
+      20: null,
+      24: null,
+      32: null,
+      40: null,
+      48: null,
+      64: null,
     },
-    radius: {
-      sm: "radius-sm",
-      md: "radius-md",
-      full: "radius-full",
-    },
+    radius: { 8: null, 12: null, 16: null, 24: null, full: null },
   },
-  (value) => `np-${value}`,
+  (_value, path) => `np-${path.map(toKebab).join("-")}`,
 );
 
-const lightColors = {
-  background: "#ffffff",
-  surface: "#f7f7f8",
-  foreground: "#171717",
-  muted: "#6b7280",
-  border: "#e5e7eb",
-  accent: "#2563eb",
-  accentForeground: "#ffffff",
+/**
+ * Semantic color role → primitive, per theme (from Figma Light/Dark modes).
+ * Shapes are checked against the contract by `createGlobalTheme` / `assignVars`.
+ */
+const lightColor = {
+  background: {
+    default: palette.white,
+    lower: palette.gray[50],
+    floated: palette.white,
+  },
+  text: {
+    strong: palette.gray[900],
+    primary: palette.gray[800],
+    secondary: palette.gray[600],
+    tertiary: palette.gray[500],
+    brand: palette.orange[600],
+    onBrand: palette.white,
+    danger: palette.status.red,
+  },
+  icon: {
+    primary: palette.gray[800],
+    secondary: palette.gray[500],
+    brand: palette.orange[500],
+  },
+  fill: {
+    brand: palette.orange[500],
+    brandPressed: palette.orange[600],
+    brandWeak: palette.orangeAlpha[12],
+    neutralWeak: palette.gray[100],
+    disabled: palette.gray[200],
+    dangerWeak: palette.status.redAlpha12,
+  },
+  border: {
+    default: palette.gray[200],
+    strong: palette.gray[300],
+    brand: palette.orange[500],
+  },
 };
 
-const darkColors = {
-  background: "#0a0a0a",
-  surface: "#161616",
-  foreground: "#ededed",
-  muted: "#9ca3af",
-  border: "#262626",
-  accent: "#3b82f6",
-  accentForeground: "#0a0a0a",
+const darkColor = {
+  background: {
+    default: palette.gray[900],
+    lower: palette.black,
+    floated: palette.gray[800],
+  },
+  text: {
+    strong: palette.white,
+    primary: palette.gray[50],
+    secondary: palette.gray[300],
+    tertiary: palette.gray[400],
+    brand: palette.orange[300],
+    onBrand: palette.white,
+    danger: palette.status.red,
+  },
+  icon: {
+    primary: palette.gray[50],
+    secondary: palette.gray[400],
+    brand: palette.orange[300],
+  },
+  fill: {
+    brand: palette.orange[400],
+    brandPressed: palette.orange[500],
+    brandWeak: palette.orangeAlpha[20],
+    neutralWeak: palette.gray[800],
+    disabled: palette.gray[700],
+    dangerWeak: palette.status.redAlpha12,
+  },
+  border: {
+    default: palette.gray[700],
+    strong: palette.gray[600],
+    brand: palette.orange[400],
+  },
 };
 
 createGlobalTheme(":root", vars, {
-  color: lightColors,
+  color: lightColor,
   font: {
     body: "var(--font-geist-sans), system-ui, -apple-system, sans-serif",
     mono: "var(--font-geist-mono), ui-monospace, monospace",
   },
-  space: {
-    xs: "4px",
-    sm: "8px",
-    md: "16px",
-    lg: "24px",
-    xl: "40px",
-  },
-  radius: {
-    sm: "6px",
-    md: "12px",
-    full: "9999px",
-  },
+  space,
+  radius,
 });
 
 globalStyle(":root", {
   "@media": {
     "(prefers-color-scheme: dark)": {
       colorScheme: "dark",
-      vars: assignVars(vars.color, darkColors),
+      vars: assignVars(vars.color, darkColor),
     },
   },
 });
@@ -103,8 +165,8 @@ globalStyle("html, body", {
 globalStyle("body", {
   minHeight: "100dvh",
   fontFamily: vars.font.body,
-  color: vars.color.foreground,
-  backgroundColor: vars.color.background,
+  color: vars.color.text.strong,
+  backgroundColor: vars.color.background.default,
   WebkitFontSmoothing: "antialiased",
 });
 
