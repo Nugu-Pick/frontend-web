@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import * as styles from "../page.css";
+import * as styles from "./home-page.css";
 
 /**
  * Throwaway example that proves the TanStack Query provider is wired up.
