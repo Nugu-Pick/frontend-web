@@ -1,4 +1,4 @@
-import { renderWithProviders, screen } from "@/test/render";
+import { renderWithProviders, screen } from "@/shared/test";
 import { ExampleQuery } from "./example-query";
 
 describe("ExampleQuery", () => {
