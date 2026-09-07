@@ -8,7 +8,6 @@ const config: StorybookConfig = {
     name: "@storybook/nextjs-vite",
     options: {},
   },
-  staticDirs: ["../public"],
   viteFinal: (viteConfig) => {
     viteConfig.resolve = { ...viteConfig.resolve, tsconfigPaths: true };
     viteConfig.plugins = viteConfig.plugins ?? [];
