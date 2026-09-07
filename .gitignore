@@ -13,6 +13,13 @@
 # testing
 /coverage
 
+# storybook
+/storybook-static
+*.log
+build-storybook.log
+chromatic.log
+chromatic-diagnostics.json
+
 # next.js
 /.next/
 /out/

@@ -142,13 +142,26 @@ createGlobalTheme(":root", vars, {
   radius,
 });
 
-globalStyle(":root", {
+// Auto dark (OS preference) — skipped when an explicit `data-theme` is set.
+globalStyle(":root:not([data-theme])", {
   "@media": {
     "(prefers-color-scheme: dark)": {
       colorScheme: "dark",
       vars: assignVars(vars.color, darkColor),
     },
   },
+});
+
+// Manual overrides — used by the app's theme switch and Storybook's toolbar,
+// and to force a fixed-theme island anywhere in the tree.
+globalStyle('[data-theme="light"]', {
+  colorScheme: "light",
+  vars: assignVars(vars.color, lightColor),
+});
+
+globalStyle('[data-theme="dark"]', {
+  colorScheme: "dark",
+  vars: assignVars(vars.color, darkColor),
 });
 
 /* ---- minimal reset ---- */
