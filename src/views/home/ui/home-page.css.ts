@@ -7,8 +7,8 @@ export const main = style({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  gap: vars.space.lg,
-  padding: vars.space.xl,
+  gap: vars.space[24],
+  padding: vars.space[40],
   textAlign: "center",
 });
 
@@ -19,7 +19,7 @@ export const title = style({
 });
 
 export const subtitle = style({
-  color: vars.color.fg.muted,
+  color: vars.color.text.secondary,
   fontSize: "1rem",
   maxWidth: "40ch",
   lineHeight: 1.6,
@@ -28,11 +28,11 @@ export const subtitle = style({
 export const card = style({
   display: "flex",
   flexDirection: "column",
-  gap: vars.space.sm,
-  padding: vars.space.lg,
-  borderRadius: vars.radius.md,
+  gap: vars.space[8],
+  padding: vars.space[24],
+  borderRadius: vars.radius[12],
   border: `1px solid ${vars.color.border.default}`,
-  backgroundColor: vars.color.bg.subtle,
+  backgroundColor: vars.color.background.lower,
   fontFamily: vars.font.mono,
   fontSize: "0.875rem",
 });

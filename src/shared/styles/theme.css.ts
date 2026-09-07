@@ -4,116 +4,132 @@ import {
   createGlobalThemeContract,
   globalStyle,
 } from "@vanilla-extract/css";
-import { palette } from "@/shared/config/tokens";
+import { palette, radius, space } from "@/shared/config/tokens";
 
 /**
- * SEMANTIC design tokens — the only tokens components may use
- * (`vars.color.fg.default`, `vars.space.md`, …).
+ * SEMANTIC design tokens — the only tokens components may use.
  *
- * `color.*` swaps between light and dark; everything else is static.
- * Raw palette values live in `shared/config/tokens.ts`; the light/dark
- * maps below wire primitives → semantic roles.
- *
- * TODO(figma): review the role → primitive mapping against Figma's semantic
- * layer. Rename roles here if Figma names them differently, then update usages.
+ * `color.*` swaps between light and dark (`prefers-color-scheme`, no toggle).
+ * `space` / `radius` / `font` are static. Structure mirrors the Figma
+ * "Semantic" collection (Light/Dark modes); raw values live in
+ * `shared/config/tokens.ts`.
  */
+const toKebab = (s: string) => s.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+
 export const vars = createGlobalThemeContract(
   {
     color: {
-      bg: { default: null, subtle: null, elevated: null, inverse: null },
-      fg: {
-        default: null,
-        muted: null,
-        subtle: null,
-        inverse: null,
-        onAccent: null,
+      background: { default: null, lower: null, floated: null },
+      text: {
+        strong: null,
+        primary: null,
+        secondary: null,
+        tertiary: null,
+        brand: null,
+        onBrand: null,
+        danger: null,
       },
-      border: { default: null, subtle: null, strong: null },
-      accent: {
-        default: null,
-        hover: null,
-        pressed: null,
-        subtle: null,
-        fg: null,
+      icon: { primary: null, secondary: null, brand: null },
+      fill: {
+        brand: null,
+        brandPressed: null,
+        brandWeak: null,
+        neutralWeak: null,
+        disabled: null,
+        dangerWeak: null,
       },
-      success: { fg: null, bg: null },
-      warning: { fg: null, bg: null },
-      danger: { fg: null, bg: null },
-      info: { fg: null, bg: null },
+      border: { default: null, strong: null, brand: null },
     },
     font: { body: null, mono: null },
-    space: { xs: null, sm: null, md: null, lg: null, xl: null },
-    radius: { sm: null, md: null, full: null },
+    space: {
+      4: null,
+      8: null,
+      12: null,
+      16: null,
+      20: null,
+      24: null,
+      32: null,
+      40: null,
+      48: null,
+      64: null,
+    },
+    radius: { 8: null, 12: null, 16: null, 24: null, full: null },
   },
-  (_value, path) => `np-${path.join("-")}`,
+  (_value, path) => `np-${path.map(toKebab).join("-")}`,
 );
 
 /**
- * Semantic color role → primitive, per theme. Shape is checked against the
- * contract by `createGlobalTheme` / `assignVars` below.
+ * Semantic color role → primitive, per theme (from Figma Light/Dark modes).
+ * Shapes are checked against the contract by `createGlobalTheme` / `assignVars`.
  */
 const lightColor = {
-  bg: {
+  background: {
     default: palette.white,
-    subtle: palette.gray[50],
-    elevated: palette.white,
-    inverse: palette.gray[900],
+    lower: palette.gray[50],
+    floated: palette.white,
   },
-  fg: {
-    default: palette.gray[900],
-    muted: palette.gray[600],
-    subtle: palette.gray[500],
-    inverse: palette.white,
-    onAccent: palette.white,
+  text: {
+    strong: palette.gray[900],
+    primary: palette.gray[800],
+    secondary: palette.gray[600],
+    tertiary: palette.gray[500],
+    brand: palette.orange[600],
+    onBrand: palette.white,
+    danger: palette.status.red,
+  },
+  icon: {
+    primary: palette.gray[800],
+    secondary: palette.gray[500],
+    brand: palette.orange[500],
+  },
+  fill: {
+    brand: palette.orange[500],
+    brandPressed: palette.orange[600],
+    brandWeak: palette.orangeAlpha[12],
+    neutralWeak: palette.gray[100],
+    disabled: palette.gray[200],
+    dangerWeak: palette.status.redAlpha12,
   },
   border: {
     default: palette.gray[200],
-    subtle: palette.gray[100],
     strong: palette.gray[300],
+    brand: palette.orange[500],
   },
-  accent: {
-    default: palette.brand[600],
-    hover: palette.brand[700],
-    pressed: palette.brand[800],
-    subtle: palette.brand[50],
-    fg: palette.white,
-  },
-  success: { fg: palette.green[700], bg: palette.green[50] },
-  warning: { fg: palette.amber[800], bg: palette.amber[50] },
-  danger: { fg: palette.red[700], bg: palette.red[50] },
-  info: { fg: palette.blue[700], bg: palette.blue[50] },
 };
 
 const darkColor = {
-  bg: {
+  background: {
     default: palette.gray[900],
-    subtle: palette.gray[800],
-    elevated: palette.gray[800],
-    inverse: palette.gray[50],
+    lower: palette.black,
+    floated: palette.gray[800],
   },
-  fg: {
-    default: palette.gray[50],
-    muted: palette.gray[400],
-    subtle: palette.gray[500],
-    inverse: palette.gray[900],
-    onAccent: palette.white,
+  text: {
+    strong: palette.white,
+    primary: palette.gray[50],
+    secondary: palette.gray[300],
+    tertiary: palette.gray[400],
+    brand: palette.orange[300],
+    onBrand: palette.white,
+    danger: palette.status.red,
+  },
+  icon: {
+    primary: palette.gray[50],
+    secondary: palette.gray[400],
+    brand: palette.orange[300],
+  },
+  fill: {
+    brand: palette.orange[400],
+    brandPressed: palette.orange[500],
+    brandWeak: palette.orangeAlpha[20],
+    neutralWeak: palette.gray[800],
+    disabled: palette.gray[700],
+    dangerWeak: palette.status.redAlpha12,
   },
   border: {
     default: palette.gray[700],
-    subtle: palette.gray[800],
     strong: palette.gray[600],
+    brand: palette.orange[400],
   },
-  accent: {
-    default: palette.brand[400],
-    hover: palette.brand[300],
-    pressed: palette.brand[200],
-    subtle: palette.brand[900],
-    fg: palette.gray[900],
-  },
-  success: { fg: palette.green[300], bg: palette.green[900] },
-  warning: { fg: palette.amber[300], bg: palette.amber[900] },
-  danger: { fg: palette.red[300], bg: palette.red[900] },
-  info: { fg: palette.blue[300], bg: palette.blue[900] },
 };
 
 createGlobalTheme(":root", vars, {
@@ -122,18 +138,8 @@ createGlobalTheme(":root", vars, {
     body: "var(--font-geist-sans), system-ui, -apple-system, sans-serif",
     mono: "var(--font-geist-mono), ui-monospace, monospace",
   },
-  space: {
-    xs: "4px",
-    sm: "8px",
-    md: "16px",
-    lg: "24px",
-    xl: "40px",
-  },
-  radius: {
-    sm: "6px",
-    md: "12px",
-    full: "9999px",
-  },
+  space,
+  radius,
 });
 
 globalStyle(":root", {
@@ -159,8 +165,8 @@ globalStyle("html, body", {
 globalStyle("body", {
   minHeight: "100dvh",
   fontFamily: vars.font.body,
-  color: vars.color.fg.default,
-  backgroundColor: vars.color.bg.default,
+  color: vars.color.text.strong,
+  backgroundColor: vars.color.background.default,
   WebkitFontSmoothing: "antialiased",
 });
 

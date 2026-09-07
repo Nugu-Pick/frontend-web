@@ -1,106 +1,88 @@
 /**
- * Design-system PRIMITIVE tokens — the raw palette.
- *
- * ⚠️ TODO(figma): every hex below is a PLACEHOLDER so the app renders during
- * setup. Replace each ramp with the real Figma palette. Trim steps you don't
- * use; keep the shape `{ 50 … 900 }` per ramp so the semantic mapping in
- * `shared/styles/theme.css.ts` keeps type-checking.
- *
- * Rules:
- * - Only `shared/styles/theme.css.ts` imports this file.
- * - Components never touch primitives — they use the semantic `vars.color.*`.
+ * Design-system PRIMITIVE tokens
  */
 
 type Ramp = Record<50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900, string>;
 
 export const palette = {
-  white: "#ffffff",
+  white: "#FFFFFF",
   black: "#000000",
 
-  // Neutral ramp — text, surfaces, borders
+  // Figma: "Orange"
+  orange: {
+    50: "#FFF3EE",
+    100: "#FFDDD1",
+    200: "#FFBDA7",
+    300: "#FF906C",
+    400: "#F76535",
+    500: "#FF571A",
+    600: "#FB4400",
+    700: "#A92E00",
+    800: "#862500",
+    900: "#641C00",
+  },
+
+  // Figma: "Grey"
   gray: {
-    50: "#f8f9fa",
-    100: "#f1f3f5",
-    200: "#e9ecef",
-    300: "#dee2e6",
-    400: "#ced4da",
-    500: "#adb5bd",
-    600: "#868e96",
-    700: "#495057",
-    800: "#343a40",
-    900: "#212529",
+    50: "#FAFAFA",
+    100: "#F4F4F4",
+    200: "#E8E8E8",
+    300: "#D6D6D6",
+    400: "#B7B7B7",
+    500: "#939393",
+    600: "#747474",
+    700: "#575757",
+    800: "#393939",
+    900: "#212121",
   },
 
-  // Brand / primary ramp
-  brand: {
-    50: "#eef2ff",
-    100: "#e0e7ff",
-    200: "#c7d2fe",
-    300: "#a5b4fc",
-    400: "#818cf8",
-    500: "#6366f1",
-    600: "#4f46e5",
-    700: "#4338ca",
-    800: "#3730a3",
-    900: "#312e81",
+  // Figma: "Orange / Alpha 12|20" — translucent brand fills (base #E43D00)
+  orangeAlpha: {
+    12: "rgba(228, 61, 0, 0.12)",
+    20: "rgba(228, 61, 0, 0.2)",
   },
 
-  // Status hues — success / warning / danger / info
-  green: {
-    50: "#ebfbee",
-    100: "#d3f9d8",
-    200: "#b2f2bb",
-    300: "#8ce99a",
-    400: "#69db7c",
-    500: "#40c057",
-    600: "#37b24d",
-    700: "#2f9e44",
-    800: "#2b8a3e",
-    900: "#237032",
+  // Figma: "Status"
+  status: {
+    red: "#F04452",
+    redAlpha12: "rgba(240, 68, 82, 0.12)",
   },
-  amber: {
-    50: "#fff9db",
-    100: "#fff3bf",
-    200: "#ffec99",
-    300: "#ffe066",
-    400: "#ffd43b",
-    500: "#fcc419",
-    600: "#fab005",
-    700: "#f59f00",
-    800: "#f08c00",
-    900: "#e67700",
-  },
-  red: {
-    50: "#fff5f5",
-    100: "#ffe3e3",
-    200: "#ffc9c9",
-    300: "#ffa8a8",
-    400: "#ff8787",
-    500: "#ff6b6b",
-    600: "#fa5252",
-    700: "#f03e3e",
-    800: "#e03131",
-    900: "#c92a2a",
-  },
-  blue: {
-    50: "#e7f5ff",
-    100: "#d0ebff",
-    200: "#a5d8ff",
-    300: "#74c0fc",
-    400: "#4dabf7",
-    500: "#339af0",
-    600: "#228be6",
-    700: "#1c7ed6",
-    800: "#1971c2",
-    900: "#1864ab",
+
+  // Figma: "Social"
+  social: {
+    kakao: "#FEE500",
+    naver: "#03C75A",
+    googleBlue: "#4285F4",
   },
 } as const satisfies {
   white: string;
   black: string;
+  orange: Ramp;
   gray: Ramp;
-  brand: Ramp;
-  green: Ramp;
-  amber: Ramp;
-  red: Ramp;
-  blue: Ramp;
+  orangeAlpha: Record<12 | 20, string>;
+  status: Record<"red" | "redAlpha12", string>;
+  social: Record<"kakao" | "naver" | "googleBlue", string>;
 };
+
+// Figma: "Spacing" (px). Keyed by pixel value to stay 1:1 with the export.
+export const space = {
+  4: "4px",
+  8: "8px",
+  12: "12px",
+  16: "16px",
+  20: "20px",
+  24: "24px",
+  32: "32px",
+  40: "40px",
+  48: "48px",
+  64: "64px",
+} as const;
+
+// Figma: "Radius" (px). `full` = 999.
+export const radius = {
+  8: "8px",
+  12: "12px",
+  16: "16px",
+  24: "24px",
+  full: "999px",
+} as const;
