@@ -4,7 +4,7 @@ import {
   createGlobalThemeContract,
   globalStyle,
 } from "@vanilla-extract/css";
-import { palette, radius, space } from "@/shared/config/tokens";
+import { fontFamily, palette, radius, space } from "@/shared/config/tokens";
 
 /**
  * SEMANTIC design tokens — the only tokens components may use.
@@ -40,7 +40,7 @@ export const vars = createGlobalThemeContract(
       },
       border: { default: null, strong: null, brand: null },
     },
-    font: { body: null, mono: null },
+    font: { body: null, mono: null, pretendard: null },
     space: {
       4: null,
       8: null,
@@ -137,18 +137,32 @@ createGlobalTheme(":root", vars, {
   font: {
     body: "var(--font-geist-sans), system-ui, -apple-system, sans-serif",
     mono: "var(--font-geist-mono), ui-monospace, monospace",
+    pretendard: fontFamily.pretendard,
   },
   space,
   radius,
 });
 
-globalStyle(":root", {
+// Auto dark (OS preference) — skipped when an explicit `data-theme` is set.
+globalStyle(":root:not([data-theme])", {
   "@media": {
     "(prefers-color-scheme: dark)": {
       colorScheme: "dark",
       vars: assignVars(vars.color, darkColor),
     },
   },
+});
+
+// Manual overrides — used by the app's theme switch and Storybook's toolbar,
+// and to force a fixed-theme island anywhere in the tree.
+globalStyle('[data-theme="light"]', {
+  colorScheme: "light",
+  vars: assignVars(vars.color, lightColor),
+});
+
+globalStyle('[data-theme="dark"]', {
+  colorScheme: "dark",
+  vars: assignVars(vars.color, darkColor),
 });
 
 /* ---- minimal reset ---- */

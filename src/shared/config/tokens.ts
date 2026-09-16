@@ -1,5 +1,13 @@
 /**
- * Design-system PRIMITIVE tokens
+ * Design-system PRIMITIVE tokens — raw palette + dimension + type scales.
+ *
+ * Source: Figma variable exports
+ *   - `Value.tokens.json`   → palette (Base mode "Value")
+ *   - `dimension.json`      → space / radius (mode "Value")
+ *   - `font style.json`     → fontFamily / fontWeight
+ *
+ * Only `shared/styles/*.css.ts` imports this file; components use the
+ * semantic `vars.*` / `text.*` instead.
  */
 
 type Ramp = Record<50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900, string>;
@@ -85,4 +93,19 @@ export const radius = {
   16: "16px",
   24: "24px",
   full: "999px",
+} as const;
+
+// Figma: "font style.json" → fontFamilies.
+// TODO: no @font-face wired up yet (next/font/local + woff2 needed) — this
+// falls back through the system Korean sans stack until then.
+export const fontFamily = {
+  pretendard:
+    "Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif",
+} as const;
+
+// Figma: "font style.json" → fontWeights (Regular/Medium/Bold → CSS numeric).
+export const fontWeight = {
+  regular: 400,
+  medium: 500,
+  bold: 700,
 } as const;
