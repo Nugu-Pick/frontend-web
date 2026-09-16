@@ -8,6 +8,7 @@ export const page = style({
   minHeight: "100dvh",
   width: "100%",
   backgroundColor: vars.color.background.default,
+  gap: "20px",
 });
 
 export const hero = style({
