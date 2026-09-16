@@ -4,7 +4,7 @@ import {
   createGlobalThemeContract,
   globalStyle,
 } from "@vanilla-extract/css";
-import { palette, radius, space } from "@/shared/config/tokens";
+import { fontFamily, palette, radius, space } from "@/shared/config/tokens";
 
 /**
  * SEMANTIC design tokens — the only tokens components may use.
@@ -40,7 +40,7 @@ export const vars = createGlobalThemeContract(
       },
       border: { default: null, strong: null, brand: null },
     },
-    font: { body: null, mono: null },
+    font: { body: null, mono: null, pretendard: null },
     space: {
       4: null,
       8: null,
@@ -137,6 +137,7 @@ createGlobalTheme(":root", vars, {
   font: {
     body: "var(--font-geist-sans), system-ui, -apple-system, sans-serif",
     mono: "var(--font-geist-mono), ui-monospace, monospace",
+    pretendard: fontFamily.pretendard,
   },
   space,
   radius,

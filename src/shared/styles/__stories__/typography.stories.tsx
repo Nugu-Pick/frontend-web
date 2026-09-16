@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { text } from "@/shared/styles/text.css";
 import { vars } from "@/shared/styles/theme.css";
-import { Section } from "./foundations";
+import { flatten, Section } from "./foundations";
 
 const meta: Meta = {
   title: "Foundations/Typography",
@@ -8,35 +9,53 @@ const meta: Meta = {
 };
 export default meta;
 
-/**
- * Only font families exist as tokens so far. A type scale (size / line-height /
- * weight / letter-spacing, named text styles) is pending a Figma export.
- */
-export const Families: StoryObj = {
-  render: () => (
-    <Section title="font" hint="type scale TBD — no Figma export yet">
-      {(
-        [
-          ["vars.font.body", vars.font.body],
-          ["vars.font.mono", vars.font.mono],
-        ] as const
-      ).map(([name, value]) => (
-        <div key={name} style={{ marginBottom: 24 }}>
+const sample = "누구픽 nugupick 0123456789";
+
+function TypeGroup({ title, group }: { title: string; group: Record<string, unknown> }) {
+  return (
+    <Section title={title}>
+      {flatten(group).map(({ path, value }) => (
+        <div
+          key={path}
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            gap: 16,
+            padding: "10px 0",
+            borderBottom: `1px solid ${vars.color.border.default}`,
+          }}
+        >
           <code
             style={{
-              display: "block",
-              marginBottom: 4,
+              width: 140,
+              flexShrink: 0,
               fontSize: 12,
               color: vars.color.text.tertiary,
             }}
           >
-            {name}
+            {title}.{path}
           </code>
-          <p style={{ fontFamily: value, fontSize: 20, margin: 0, color: vars.color.text.primary }}>
-            누구픽 nugupick — The quick brown fox 0123456789
-          </p>
+          <span className={value} style={{ color: vars.color.text.strong }}>
+            {sample}
+          </span>
         </div>
       ))}
     </Section>
+  );
+}
+
+/**
+ * Named text styles from Figma "font style.json" (Pretendard). No `@font-face`
+ * is wired up yet — falls back through the system Korean sans stack; see
+ * `shared/config/tokens.ts` `fontFamily.pretendard`.
+ */
+export const TypeScale: StoryObj = {
+  render: () => (
+    <>
+      <TypeGroup title="display" group={text.display} />
+      <TypeGroup title="heading" group={text.heading} />
+      <TypeGroup title="body" group={text.body} />
+      <TypeGroup title="label" group={text.label} />
+    </>
   ),
 };
