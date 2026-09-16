@@ -54,6 +54,8 @@ export const vars = createGlobalThemeContract(
       64: null,
     },
     radius: { 8: null, 12: null, 16: null, 24: null, full: null },
+    // Third-party brand marks (social login) — fixed regardless of theme.
+    brand: { kakao: null, naver: null },
   },
   (_value, path) => `np-${path.map(toKebab).join("-")}`,
 );
@@ -141,6 +143,10 @@ createGlobalTheme(":root", vars, {
   },
   space,
   radius,
+  brand: {
+    kakao: palette.social.kakao,
+    naver: palette.social.naver,
+  },
 });
 
 // Auto dark (OS preference) — skipped when an explicit `data-theme` is set.
