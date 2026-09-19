@@ -72,10 +72,12 @@ src/
     api/             #   query-client.ts — server/browser QueryClient factory
     config/          #   tokens.ts — PRIMITIVE tokens (palette, space, radius,
                       #     fontFamily, fontWeight — all from Figma exports)
-    styles/          #   theme.css.ts   — SEMANTIC color/space/radius/font
+    styles/          #   theme.css.ts    — SEMANTIC color/space/radius/font
                       #     contract, light/dark + reset
-                      #   text.css.ts   — named type-scale classes
+                      #   text.css.ts     — named type-scale classes
                       #     (display/heading/body/label × size × weight)
+                      #   viewport.css.ts — caps the app to phone width
+                      #     (480px) and centers it, even on desktop
       __stories__/    #   Storybook: Foundations/{Colors,Spacing,Radius,Typography}
     test/             #   renderWithProviders() helper
     ui/               #   (later) design-system primitives
@@ -112,6 +114,12 @@ later.
 - **`"use client"`:** push the boundary as low as possible — interactive
   `shared/ui` primitives and hook-using `features/*`; keep `views`/`widgets`
   as server components where possible.
+- **Mobile-only:** there is no desktop layout. The root layout wraps every
+  page in `shared/styles/viewport.css.ts`'s `viewport` (max-width 480px,
+  centered, `env(safe-area-inset-*)` padding) so desktop/tablet visitors see
+  the same phone-width experience, framed with a hairline border once there's
+  visible gutter. Pages build their UI at 100% width of that column — no
+  page needs its own max-width or centering.
 - **Path alias:** `@/*` → `src/*` (e.g. `@/shared/api`, `@/views/home`).
 - `src/views/home/ui/example-query.tsx` is a throwaway demo of the Query
   wiring — delete it once real features land.

@@ -54,6 +54,8 @@ export const vars = createGlobalThemeContract(
       64: null,
     },
     radius: { 8: null, 12: null, 16: null, 24: null, full: null },
+    // Third-party brand marks (social login) — fixed regardless of theme.
+    brand: { kakao: null, naver: null },
   },
   (_value, path) => `np-${path.map(toKebab).join("-")}`,
 );
@@ -141,6 +143,10 @@ createGlobalTheme(":root", vars, {
   },
   space,
   radius,
+  brand: {
+    kakao: palette.social.kakao,
+    naver: palette.social.naver,
+  },
 });
 
 // Auto dark (OS preference) — skipped when an explicit `data-theme` is set.
@@ -180,7 +186,9 @@ globalStyle("body", {
   minHeight: "100dvh",
   fontFamily: vars.font.body,
   color: vars.color.text.strong,
-  backgroundColor: vars.color.background.default,
+  // Neutral canvas outside the centered mobile viewport (see viewport.css.ts)
+  // on wide screens; fully covered by it on phone-width screens.
+  backgroundColor: vars.color.background.lower,
   WebkitFontSmoothing: "antialiased",
 });
 
