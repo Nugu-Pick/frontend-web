@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BackIcon } from "./icons";
+import { ChevronLeftIcon } from "@/shared/ui/icons";
 import { TermRow } from "./term-row";
 import * as styles from "./terms-page.css";
 
@@ -60,7 +60,7 @@ export function TermsPage() {
           aria-label="뒤로가기"
           onClick={() => router.back()}
         >
-          <BackIcon />
+          <ChevronLeftIcon />
         </button>
       </div>
 
