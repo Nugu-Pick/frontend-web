@@ -17,11 +17,11 @@ export const recipeDetailDummy = {
     subtitle: "원본 방송 · 2023.08.12",
   },
   tasteProfile: [
-    { label: "고소함", value: 80 },
-    { label: "짠맛", value: 55 },
-    { label: "매콤함", value: 65 },
-    { label: "새콤함", value: 30 },
-    { label: "달콤함", value: 40 },
+    { label: "고소함", value: 90 },
+    { label: "짠맛", value: 50 },
+    { label: "매콤함", value: 50 },
+    { label: "새콤함", value: 10 },
+    { label: "달콤함", value: 30 },
   ],
   servingNote: "1인분 기준",
   ingredients: [
