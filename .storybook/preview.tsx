@@ -13,6 +13,10 @@ const preview: Preview = {
     layout: "fullscreen",
     // The theme tokens own the page background; disable the addon's own control.
     backgrounds: { disable: true },
+    // App Router project (`next/navigation`) — without this the framework's
+    // router decorator mocks the Pages Router instead, and any `useRouter()`
+    // call throws "invariant expected app router to be mounted".
+    nextjs: { appDirectory: true },
     chromatic: {
       modes: {
         light: { theme: "light" },
