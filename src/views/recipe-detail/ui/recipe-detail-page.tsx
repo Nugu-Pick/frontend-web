@@ -1,6 +1,8 @@
 import { text } from "@/shared/styles/text.css";
+import * as detail from "@/shared/ui/detail-page.css";
 import { DetailTopBar } from "@/shared/ui/detail-top-bar";
 import { ChevronRightIcon } from "@/shared/ui/icons";
+import { OutlineButton } from "@/shared/ui/outline-button";
 import { PlaceholderImage } from "@/shared/ui/placeholder-image";
 import { ReviewCard } from "@/shared/ui/review-card";
 import { SectionHeader, SectionHeaderAction } from "@/shared/ui/section-header";
@@ -16,7 +18,7 @@ import * as styles from "./recipe-detail-page.css";
 // 후기 더보기, 비슷한 조합 탐색 등 실제 동작은 API 연동 시 붙인다.
 export function RecipeDetailPage() {
   return (
-    <main className={styles.page}>
+    <main className={detail.page}>
       <DetailTopBar />
 
       <div className={styles.hero}>
@@ -24,16 +26,16 @@ export function RecipeDetailPage() {
         <span className={`${styles.heroLabel} ${text.label.lg.bold}`}>{recipe.heroLabel}</span>
       </div>
 
-      <div className={styles.content}>
+      <div className={detail.content}>
         <section className={styles.infoSection}>
-          <div className={styles.tagsRow}>
+          <div className={detail.tagsRow}>
             {recipe.tags.map((tag) => (
               <TagChip key={tag} label={tag} />
             ))}
           </div>
           <h1 className={`${styles.name} ${text.heading.lg.bold}`}>{recipe.name}</h1>
           <p className={`${styles.description} ${text.body.sm.regular}`}>{recipe.description}</p>
-          <div className={`${styles.metaRow} ${text.body.sm.regular}`}>
+          <div className={`${detail.metaRow} ${text.body.sm.regular}`}>
             <StarRating rating={recipe.rating} />
             <span>·</span>
             <span>후기 {recipe.reviewCount}</span>
@@ -42,7 +44,7 @@ export function RecipeDetailPage() {
           </div>
         </section>
 
-        <section className={styles.section}>
+        <section className={detail.section}>
           <SectionHeader title="누가 만든 조합인가요?" />
           <div className={styles.creatorCard}>
             <PlaceholderImage className={styles.creatorAvatar} aspectRatio="1 / 1" iconSize={20} />
@@ -60,7 +62,7 @@ export function RecipeDetailPage() {
           </div>
         </section>
 
-        <section className={styles.section}>
+        <section className={detail.section}>
           <SectionHeader title="맛의 특징" />
           <div className={styles.tasteList}>
             {recipe.tasteProfile.map((taste) => (
@@ -76,7 +78,7 @@ export function RecipeDetailPage() {
           </div>
         </section>
 
-        <section className={styles.section}>
+        <section className={detail.section}>
           <SectionHeader
             title="필요한 재료"
             action={<span className={text.label.md.regular}>{recipe.servingNote}</span>}
@@ -97,7 +99,7 @@ export function RecipeDetailPage() {
           </span>
         </section>
 
-        <section className={styles.section}>
+        <section className={detail.section}>
           <SectionHeader title="만드는 법" />
           <div className={styles.stepList}>
             {recipe.steps.map((step, index) => (
@@ -117,7 +119,7 @@ export function RecipeDetailPage() {
           </div>
         </section>
 
-        <section className={styles.section}>
+        <section className={detail.section}>
           <SectionHeader title="잘 어울리는 메뉴" />
           <div className={styles.pairingGrid}>
             {recipe.pairings.map((pairing) => (
@@ -139,7 +141,7 @@ export function RecipeDetailPage() {
           </div>
         </section>
 
-        <section className={styles.section}>
+        <section className={detail.section}>
           <SectionHeader
             title={`유저의 후기 ${recipe.reviewCount}`}
             action={<SectionHeaderAction label="후기 작성하기" />}
@@ -159,12 +161,10 @@ export function RecipeDetailPage() {
               <ReviewCard key={review.id} review={review} />
             ))}
           </div>
-          <button type="button" className={`${styles.moreButton} ${text.body.sm.medium}`}>
-            후기 전체 보기
-          </button>
+          <OutlineButton>후기 전체 보기</OutlineButton>
         </section>
 
-        <section className={styles.section}>
+        <section className={detail.section}>
           <SectionHeader title="원본 콘텐츠" />
           <div className={styles.originalContentList}>
             {recipe.originalContents.map((original) => (
@@ -183,7 +183,7 @@ export function RecipeDetailPage() {
           </div>
         </section>
 
-        <section className={styles.section}>
+        <section className={detail.section}>
           <SectionHeader title="비슷한 소스 조합" />
           <div className={styles.similarList}>
             {recipe.similarRecipes.map((similar) => (

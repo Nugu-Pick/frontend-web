@@ -1,6 +1,8 @@
 import { text } from "@/shared/styles/text.css";
+import * as detail from "@/shared/ui/detail-page.css";
 import { DetailTopBar } from "@/shared/ui/detail-top-bar";
 import { CopyIcon, PlayIcon } from "@/shared/ui/icons";
+import { OutlineButton } from "@/shared/ui/outline-button";
 import { PlaceholderImage } from "@/shared/ui/placeholder-image";
 import { ReviewCard } from "@/shared/ui/review-card";
 import { SectionHeader, SectionHeaderAction } from "@/shared/ui/section-header";
@@ -16,7 +18,7 @@ import * as styles from "./place-detail-page.css";
 // 더보기·후기 작성 등 실제 동작은 API 연동 시 붙인다.
 export function PlaceDetailPage() {
   return (
-    <main className={styles.page}>
+    <main className={detail.page}>
       <DetailTopBar />
 
       <div className={styles.heroWrap}>
@@ -26,10 +28,10 @@ export function PlaceDetailPage() {
         </span>
       </div>
 
-      <div className={styles.content}>
+      <div className={detail.content}>
         <section className={styles.infoSection}>
           <h1 className={`${styles.name} ${text.heading.lg.bold}`}>{place.name}</h1>
-          <div className={`${styles.metaRow} ${text.body.sm.regular}`}>
+          <div className={`${detail.metaRow} ${text.body.sm.regular}`}>
             <span>{place.category}</span>
             <span>·</span>
             <StarRating rating={place.rating} />
@@ -43,14 +45,14 @@ export function PlaceDetailPage() {
               복사
             </button>
           </div>
-          <div className={styles.tagsRow}>
+          <div className={detail.tagsRow}>
             {place.tags.map((tag) => (
               <TagChip key={tag} label={tag} />
             ))}
           </div>
         </section>
 
-        <section className={styles.section}>
+        <section className={detail.section}>
           <SectionHeader title="맛있게 먹은 연예인" />
           <div className={styles.scrollRow}>
             {place.celebrityPicks.map((pick) => (
@@ -79,7 +81,7 @@ export function PlaceDetailPage() {
           </div>
         </section>
 
-        <section className={styles.section}>
+        <section className={detail.section}>
           <SectionHeader title="원본 영상" />
           <div className={styles.videoCard}>
             <PlaceholderImage aspectRatio="16 / 9" iconSize={32} />
@@ -95,7 +97,7 @@ export function PlaceDetailPage() {
           </span>
         </section>
 
-        <section className={styles.section}>
+        <section className={detail.section}>
           <SectionHeader
             title={`유저의 후기 (${place.reviewCount})`}
             action={<SectionHeaderAction label="후기 작성하기" />}
@@ -105,12 +107,10 @@ export function PlaceDetailPage() {
               <ReviewCard key={review.id} review={review} />
             ))}
           </div>
-          <button type="button" className={`${styles.moreButton} ${text.body.sm.medium}`}>
-            후기 더 확인하기
-          </button>
+          <OutlineButton>후기 더 확인하기</OutlineButton>
         </section>
 
-        <section className={styles.section}>
+        <section className={detail.section}>
           <SectionHeader title="이 가게의 인스타 영상, 트위터" />
           <div className={styles.scrollRow}>
             {place.instaPosts.map((post) => (

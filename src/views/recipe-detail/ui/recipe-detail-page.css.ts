@@ -1,14 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "@/shared/styles/theme.css";
 
-export const page = style({
-  display: "flex",
-  flexDirection: "column",
-  minHeight: "100dvh",
-  width: "100%",
-  backgroundColor: vars.color.background.default,
-});
-
 export const hero = style({
   display: "flex",
   flexDirection: "column",
@@ -32,23 +24,10 @@ export const heroLabel = style({
   color: vars.color.text.brand,
 });
 
-export const content = style({
-  display: "flex",
-  flexDirection: "column",
-  gap: vars.space[32],
-  padding: `${vars.space[20]} ${vars.space[20]} ${vars.space[40]}`,
-});
-
 export const infoSection = style({
   display: "flex",
   flexDirection: "column",
   gap: vars.space[12],
-});
-
-export const tagsRow = style({
-  display: "flex",
-  flexWrap: "wrap",
-  gap: vars.space[8],
 });
 
 export const name = style({
@@ -57,19 +36,6 @@ export const name = style({
 
 export const description = style({
   color: vars.color.text.secondary,
-});
-
-export const metaRow = style({
-  display: "flex",
-  alignItems: "center",
-  gap: vars.space[8],
-  color: vars.color.text.secondary,
-});
-
-export const section = style({
-  display: "flex",
-  flexDirection: "column",
-  gap: vars.space[16],
 });
 
 export const creatorCard = style({
@@ -269,16 +235,6 @@ export const reviewList = style({
   display: "flex",
   flexDirection: "column",
   gap: vars.space[16],
-});
-
-export const moreButton = style({
-  alignSelf: "stretch",
-  padding: "12px 0",
-  borderRadius: vars.radius[12],
-  border: `1px solid ${vars.color.border.default}`,
-  background: "none",
-  color: vars.color.text.secondary,
-  cursor: "pointer",
 });
 
 export const originalContentList = style({
