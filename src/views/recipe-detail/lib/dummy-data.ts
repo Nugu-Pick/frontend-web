@@ -21,6 +21,7 @@ export const recipeDetailDummy = {
     { label: "짠맛", value: 55 },
     { label: "매콤함", value: 65 },
     { label: "새콤함", value: 30 },
+    { label: "달콤함", value: 40 },
   ],
   servingNote: "1인분 기준",
   ingredients: [
