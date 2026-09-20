@@ -119,12 +119,6 @@ export const videoTitle = style({
   color: vars.color.text.primary,
 });
 
-export const reviewList = style({
-  display: "flex",
-  flexDirection: "column",
-  gap: vars.space[16],
-});
-
 export const instaItem = style({
   position: "relative",
   width: 140,

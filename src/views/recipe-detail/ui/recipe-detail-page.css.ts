@@ -231,12 +231,6 @@ export const reviewSummaryOverall = style({
   gap: 4,
 });
 
-export const reviewList = style({
-  display: "flex",
-  flexDirection: "column",
-  gap: vars.space[16],
-});
-
 export const originalContentList = style({
   display: "flex",
   flexDirection: "column",

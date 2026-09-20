@@ -5,6 +5,7 @@ import { ChevronRightIcon } from "@/shared/ui/icons";
 import { OutlineButton } from "@/shared/ui/outline-button";
 import { PlaceholderImage } from "@/shared/ui/placeholder-image";
 import { ReviewCard } from "@/shared/ui/review-card";
+import { list as reviewList } from "@/shared/ui/review-card.css";
 import { SectionHeader, SectionHeaderAction } from "@/shared/ui/section-header";
 import { StarRating } from "@/shared/ui/star-rating";
 import { TagChip } from "@/shared/ui/tag-chip";
@@ -156,7 +157,7 @@ export function RecipeDetailPage() {
             <span>·</span>
             <span>재구매 {recipe.reviewSummary.repurchase}</span>
           </div>
-          <div className={styles.reviewList}>
+          <div className={reviewList}>
             {recipe.reviews.map((review) => (
               <ReviewCard key={review.id} review={review} />
             ))}

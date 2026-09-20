@@ -5,6 +5,7 @@ import { CopyIcon, PlayIcon } from "@/shared/ui/icons";
 import { OutlineButton } from "@/shared/ui/outline-button";
 import { PlaceholderImage } from "@/shared/ui/placeholder-image";
 import { ReviewCard } from "@/shared/ui/review-card";
+import { list as reviewList } from "@/shared/ui/review-card.css";
 import { SectionHeader, SectionHeaderAction } from "@/shared/ui/section-header";
 import { StarRating } from "@/shared/ui/star-rating";
 import { TagChip } from "@/shared/ui/tag-chip";
@@ -102,7 +103,7 @@ export function PlaceDetailPage() {
             title={`유저의 후기 (${place.reviewCount})`}
             action={<SectionHeaderAction label="후기 작성하기" />}
           />
-          <div className={styles.reviewList}>
+          <div className={reviewList}>
             {place.reviews.map((review) => (
               <ReviewCard key={review.id} review={review} />
             ))}
